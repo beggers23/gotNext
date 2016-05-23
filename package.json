@@ -1,0 +1,25 @@
+{
+  "name": "got_next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beggers23/gotNext.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beggers23/gotNext/issues"
+  },
+  "homepage": "https://github.com/beggers23/gotNext#readme",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.19",
+    "morgan": "^1.7.0"
+  }
+}
