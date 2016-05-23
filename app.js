@@ -38,8 +38,8 @@ app.use('/api/users', apiUsersRouter);
 
 // Listen on port for connections
 // process.env.PORT is needed for when we deploy to Heroku
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 app.listen( port, function() {
-  console.log("free tacos at 3000");
+  console.log("free tacos at 8080");
 });
