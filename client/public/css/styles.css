@@ -8,6 +8,7 @@ body {
   background-color: coral;
 }
 
+
 /* HEADER STYLES */
 #header{
   display: flex;
@@ -64,4 +65,8 @@ body {
 #map {
   height: 80vh;
   width: 80vw;
+}
+
+.blink{
+
 }

@@ -7,6 +7,17 @@ var express = require('express'),
 // initialize passport
 usersRouter.use(passport.initialize());
 
+usersRouter.get('/auth/facebook', passport.authenticate('facebook'));
+
+
+usersRouter.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    // Cookies.set('current_user', req.user);
+    res.redirect('profile');
+  });
+
 // Log In and if successful send back the token
 
 // We would need to install express-flash for flash messages to work
