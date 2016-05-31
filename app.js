@@ -13,7 +13,7 @@ var session = require('express-session');
 var User = require('./server/models/user.js');
 var Checkin = require('./server/models/checkin.js');
 
-mongoose.connect( process.env.MONGOLAB_URI || "mongodb://localhost/gotNext" )
+mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/gotNext" )
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'client/public/views'));
@@ -21,6 +21,8 @@ app.use(express.static(__dirname + '/client/public/'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 passport.use(new FacebookStrategy({
@@ -77,6 +79,7 @@ app.get('/auth/facebook/callback',
 )
 
 app.get('/profile', function(req, res){
+  console.log( req.user );
   res.render('profile', {user: req.user});
 });
 
@@ -101,10 +104,9 @@ app.get('/api/checkins', function(req, res, next){
 
 //TODO Need to solve the Checkins issue
 app.post('/api/checkins', function(req, res, next){
-  console.log( req );
-  // Checkin.create( req.body , function( err, checkin){
-  //   res.json({ checkin: checkin });
-  // });
+  Checkin.create( req.body , function( err, checkin){
+    res.json({ checkin: checkin });
+  });
 });
 
 var port = process.env.PORT || 3000;
