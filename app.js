@@ -1,45 +1,114 @@
-var dotEnv          = require('dotenv').config(),
-    express         = require('express'),
-    morgan          = require('morgan'),
-    mongoose        = require('mongoose'),
-    bodyParser      = require('body-parser'),
-    cookieParser    = require('cookie-parser'),
-    app             = express(),
-    indexRouter     = require('./server/routes/index.js'),
-    apiAuthRouter   = require('./server/routes/api/auth.js'),
-    apiUsersRouter  = require('./server/routes/api/users.js');
+var express = require('express');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+var dotEnv = require('dotenv').config();
+var app = express();
+var path = require('path');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var session = require('express-session');
 
-// connect to db
-// process.env.MONGOLAB_URI is needed for when we deploy to Heroku
-mongoose.connect( process.env.MONGOLAB_URI || "mongodb://localhost/gotNext" );
+var User = require('./server/models/user.js');
+var Checkin = require('./server/models/checkin.js');
 
-// log requests to STDOUT
-app.use(morgan('dev'));
+mongoose.connect( process.env.MONGOLAB_URI || "mongodb://localhost/gotNext" )
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// parse application/json
-app.use(bodyParser.json());
-
-// flash messages, NEEDS express-flash
-// app.use(flash())
 app.set('view engine', 'ejs');
-
-// This is how we read the cookies sent over from the browser
+app.set('views', path.join(__dirname, 'client/public/views'));
+app.use(express.static(__dirname + '/client/public/'));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cookieParser());
 
-// Set static file root folder
-app.use(express.static('client/public'));
 
-app.use('/', indexRouter);
-app.use('/api/auth', apiAuthRouter);
-app.use('/api/users', apiUsersRouter);
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  },
+  function(accessToken, refreshToken, profile, done){
+    // User.findOne({ 'facebookID': profile.id }, function(err, user) {
+    //   if (err){
+    //     return done(err);}
+    //   if (user) {
+    //     return done(null, user)} // user found, return that user
+    //   else {
+    //     // if there is no user found with that facebook id, create them
+        var newUser = {
+          facebookID: profile.id,
+          displayName: profile.displayName,
+          token: accessToken
+        }
 
-// Listen on port for connections
-// process.env.PORT is needed for when we deploy to Heroku
-var port = process.env.PORT || 8080;
+        User.create(newUser, function(err, user){
+          if(err){ return done(err)}
+          return done(null, user);
+        });
+  //     }
+  //  });
+  }
+));
 
-app.listen( port, function() {
-  console.log("free tacos at 8080");
+passport.serializeUser(function(user, done) {
+  done(null, user);
 });
+
+passport.deserializeUser(function(user, done) {
+  User.findById(user.id, function(err, user){
+    done(err, user);
+  });
+});
+
+
+app.get('/', function(req, res){
+  res.render('index');
+});
+
+app.get('/login', function(req, res){
+  res.render('login');
+});
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email', 'user_friends']}));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/profile', failureRedirect: '/login' })
+)
+
+app.get('/profile', function(req, res){
+  res.render('profile', {user: req.user});
+});
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/api/users', function(req, res, next){
+  User.find( function(err, users){
+    res.json( users );
+  });
+});
+
+
+//TODO Need to solve the Checkins issue
+app.get('/api/checkins', function(req, res, next){
+  Checkin.find(function(err, checkins){
+    res.json( checkins );
+  })
+})
+
+//TODO Need to solve the Checkins issue
+app.post('/api/checkins', function(req, res, next){
+  console.log( req );
+  // Checkin.create( req.body , function( err, checkin){
+  //   res.json({ checkin: checkin });
+  // });
+});
+
+var port = process.env.PORT || 3000;
+
+app.listen( port, function(){
+  console.log( 'listening in on port '+port);
+})
