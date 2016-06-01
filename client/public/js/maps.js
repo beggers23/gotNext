@@ -1,12 +1,13 @@
 var app = angular.module('GotNext', []);
 app.controller('MainController', function( $compile, $scope, $http, $location) {
+  $scope.current_user = JSON.parse($('#user').text());
+
+
   $scope.checkinsArray;
   $http.get('/api/checkins').then(function(response){
     $scope.checkinsArray = response.data
     console.log( response.data );
   });
-
-  $scope.current_user = "<%- JSON.stringify(user) %>"
 
   $scope.map;
   $scope.position;
@@ -114,8 +115,6 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
     service.getDetails( request , $scope.updateSidebar );
   }
 
-  $scope.court = {}
-  
   $scope.updateSidebar = function( results, status){
     $scope.court.name = results.name;
     $scope.court.address = results.formatted_address;
@@ -128,6 +127,8 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
       }
     }
   }
+
+  // $scope.courtInfo( $scope.currentUser.homecourt );
 
   //TODO access the Facebook Friends list and the other things that are missing
   //Friends list will only return friends who have downloaded and signed in to the app - perfect
