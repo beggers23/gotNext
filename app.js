@@ -83,9 +83,11 @@ app.get('/auth/facebook', passport.authenticate('facebook', {session: true, scop
 
 app.get('/auth/facebook/callback',passport.authenticate('facebook', {session: true ,  successRedirect: '/profile', failureRedirect: '/login'}));
 
-
+app.get('/user', function(req, res){
+  res.send({ user: req.user });
+})
 app.get('/profile', function(req, res){
-  res.locals.user = req.user;
+  res.locals.user = req.user
   res.render('profile');
 });
 

@@ -1,7 +1,10 @@
 var app = angular.module('GotNext', []);
 app.controller('MainController', function( $compile, $scope, $http, $location) {
-  $scope.current_user = JSON.parse($('#user').text());
 
+  $http.get('/user').then(function(response){
+    $scope.currentUser = response.data.user ;
+    console.log( $scope.currentUser );
+  });
 
   $scope.checkinsArray;
   $http.get('/api/checkins').then(function(response){
@@ -107,29 +110,27 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
       console.log(response.data);
     });
   }
+
   $scope.courtInfo = function( venueID ){
     var request = {
       placeId: venueID
     }
+    console.log( request );
     service = new google.maps.places.PlacesService($scope.map);
-    service.getDetails( request , $scope.updateSidebar );
-  }
+    service.getDetails( request , function(results, status){
+      $scope.court = {};
+      $scope.court.name = results.name;
+      $scope.court.address = results.formatted_address;
+      $scope.court.phone = results.formatted_phone;
+      $scope.court.checkins = [];
 
-  $scope.updateSidebar = function( results, status){
-    $scope.court.name = results.name;
-    $scope.court.address = results.formatted_address;
-    $scope.court.phone = results.formatted_phone;
-    $scope.court.checkins = [];
-
-    for(var i=0; i< $scope.checkinsArray.length; i++){
-      if($scope.checkinsArray[i].court_id == results.place_id){
-        $scope.court.checkins.push( $scope.checkinsArray[i] );
+      for(var i=0; i< $scope.checkinsArray.length; i++){
+        if($scope.checkinsArray[i].court_id == results.place_id){
+          $scope.court.checkins.push( $scope.checkinsArray[i] );
+        }
       }
-    }
+    });
   }
-
-  // $scope.courtInfo( $scope.currentUser.homecourt );
-
   //TODO access the Facebook Friends list and the other things that are missing
   //Friends list will only return friends who have downloaded and signed in to the app - perfect
   //Need to get ability to create a facebook message group - not sure if do able but would be dope.
@@ -141,7 +142,6 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
       user_id: $scope.currentUser._id,
       facebook_id: $scope.currentUser.facebookID
     }
-
     $http.post('/api/checkins', checkin ).then(function(response){
       console.log( response.data );
     });
