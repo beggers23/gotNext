@@ -2,6 +2,7 @@
 <html ng-app='GotNext'>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/styles.css" media="screen" title="no title" charset="utf-8">
     <title>SIGNED IN</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js" charset="utf-8"></script>
@@ -16,10 +17,31 @@
         <div id='top'>
           <h1>{{ currentUser.displayName }}</h1>
         </div>
-        <div id='bottom'>
+        <div id='middle'>
           <p>{{ court.name }}</p>
           <p>{{ court.address }}</p>
           <p>Current Checkins: {{ court.checkins.length }}</p>
+        </div>
+        <div id='bottom'>
+          <div class='media' ng-repeat='court in court.checkins'>
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="">
+                <!-- Facebook Profile Image -->
+              </p>
+            </figure>
+            <div class='media-content'>
+              <div class='content'>
+                <!-- Facebook Name -->
+                <p>
+                  <strong>{{ court.facebook_id }}</strong>
+                  <br>
+                  Checked in at {{ court.createdAt }}
+                </p>
+                <!-- Parse this to a real time -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div id='map'></div>

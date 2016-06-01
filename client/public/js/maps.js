@@ -1,9 +1,12 @@
 var app = angular.module('GotNext', []);
 app.controller('MainController', function( $compile, $scope, $http, $location) {
 
+  $scope.currentUser;
+  $scope.court = {};
+
   $http.get('/user').then(function(response){
     $scope.currentUser = response.data.user ;
-    console.log( $scope.currentUser );
+    console.log( $scope.currentUser);
   });
 
   $scope.checkinsArray;
@@ -63,29 +66,26 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
 
     var marker = new google.maps.Marker({
       position: venue.geometry.location,
-      map: $scope.map
+      map: $scope.map,
+      icon: {url: 'images/hoop.png', scaledSize: new google.maps.Size(25, 50)}
     });
-
-    var totalCheckins=0;
-
-    for(var i=0; i< $scope.checkinsArray.length; i++){
-      if($scope.checkinsArray[i].court_id == venue.place_id){
-        totalCheckins++;
-      }
-    }
 
     marker.addListener( 'click', function(){
       var htmlElement =
-      '<div class="info-window">'+
-          '<h2>'+venue.name+'</h2>'+
+      '<div class="card">'+
+        '<div class="card-header">'+
+          '<h1 class="card-header-title is-large">'+venue.name+'</h1>'+
+        '</div>'+
+        '<div class="card-content">'+
           '<p>'+venue.formatted_address+'</p>'+
-          '<p class="current"> Current Players: '+totalCheckins+'</p>'+
-        '<div class="info-content">'+
-          '<button class="court-info" ng-click=courtInfo(\''+venue.place_id+'\')> Court Info </button>'+
-          '<button class="save-home" ng-click=saveHome(\''+venue.place_id+'\')>Save as Home Court</button>'+
-          '<button class="checkin-btn" ng-click=checkIn(\''+venue.place_id+'\')> Check in </button>'
+        '</div>'+
+        '<div class="card-footer">'+
+          '<a class="card-footer-item" ng-click=courtInfo(\''+venue.place_id+'\')> Court Info </a>'+
+          '<a class="card-footer-item" ng-click=saveHome(\''+venue.place_id+'\')>Home Court</a>'+
+          '<a class="card-footer-item" ng-click=checkIn(\''+venue.place_id+'\')> Check in </a>'
         '</div>'+
       '</div>'
+
 
       var compiled = $compile(htmlElement)($scope);
       infoWindow.setContent(compiled[0]);
@@ -108,6 +108,7 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
     var updates = $scope.currentUser;
     $http.put('/api/users/'+$scope.currentUser._id, updates).then(function(response){
       console.log(response.data);
+      $scope.courtInfo( $scope.currentUser.homecourt );
     });
   }
 
@@ -115,25 +116,29 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
     var request = {
       placeId: venueID
     }
-    console.log( request );
-    service = new google.maps.places.PlacesService($scope.map);
+    service = new google.maps.places.PlacesService( $scope.map );
     service.getDetails( request , function(results, status){
-      $scope.court = {};
-      $scope.court.name = results.name;
-      $scope.court.address = results.formatted_address;
-      $scope.court.phone = results.formatted_phone;
-      $scope.court.checkins = [];
-
-      for(var i=0; i< $scope.checkinsArray.length; i++){
-        if($scope.checkinsArray[i].court_id == results.place_id){
-          $scope.court.checkins.push( $scope.checkinsArray[i] );
+      $scope.$apply(function() {
+        $scope.court.name = results.name;
+        $scope.court.address = results.formatted_address;
+        $scope.court.phone = results.formatted_phone;
+        $scope.court.checkins = [];
+        for(var i=0; i< $scope.checkinsArray.length; i++){
+          if($scope.checkinsArray[i].court_id == results.place_id){
+            $scope.court.checkins.push( $scope.checkinsArray[i] );
+          }
         }
-      }
+      });
     });
   }
   //TODO access the Facebook Friends list and the other things that are missing
   //Friends list will only return friends who have downloaded and signed in to the app - perfect
   //Need to get ability to create a facebook message group - not sure if do able but would be dope.
+
+
+
+
+
   //Then need to set up a Sockets chat for at the court //Seeming less likely as I draw up the plans.
 
   $scope.checkIn = function(result){
@@ -143,7 +148,7 @@ app.controller('MainController', function( $compile, $scope, $http, $location) {
       facebook_id: $scope.currentUser.facebookID
     }
     $http.post('/api/checkins', checkin ).then(function(response){
-      console.log( response.data );
+      $scope.checkinsArray.push(response.data.checkin);
     });
   }
 
