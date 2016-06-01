@@ -2,21 +2,27 @@
 <html ng-app='GotNext'>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/styles.css" media="screen" title="no title" charset="utf-8">
     <title>SIGNED IN</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js" charset="utf-8"></script>
-    <style>
-      #map {
-        height: 500px;
-        width: 700px;
-      }
-    </style>
   </head>
   <body ng-controller='MainController'>
-    <h1> SIGNED IN</h1>
-    <h2> {{ currentUser.displayName }}</h2>
-
-
-    <div id='map'></div>
+    <header>
+      <% include partials/logoutheader %>
+    </header>
+    <div id='main'>
+      <div id='side'>
+        <div id='top'>
+          
+        </div>
+        <div id='bottom'>
+          <p>{{ court.name }}</p>
+          <p>{{ court.address }}</p>
+          <p>Current Checkins: {{ court.checkins.length }}</p>
+        </div>
+      </div>
+      <div id='map'></div>
+    </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwMlqGemsgxapOyVFfYwMpmCNv82-3Sko&libraries=placeses,visualization,drawing,geometry,places" defer></script>
     <script src="/js/maps.js" charset="utf-8"></script>

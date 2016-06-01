@@ -51,22 +51,32 @@ body {
 
 /* MAIN BODY STYLES */
 #main {
-  position: relative;
   height: 90vh;
   width: 100vw;
-  overflow-y: scroll;
   border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
 }
-
-
 
 /*MAP STYLES*/
-
-#map {
-  height: 80vh;
-  width: 80vw;
+#side{
+  height: 90vh;
+  width: 20vw;
+  border-right: 2px solid black;
 }
 
-.blink{
+#top{
+  height: 45vh;
+  width: 20vw;
+  border-bottom: 2px solid black;
+}
 
+#bottom {
+  height: 45vh;
+  width: 20vw;
+}
+
+#map {
+  width: 80vw;
+  height: 100%;
 }
