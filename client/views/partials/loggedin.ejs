@@ -1,0 +1,82 @@
+<div id='main'>
+  <div id='side'>
+    <div id='top' class='card'>
+      <img id='userProfilePic' class='image is-128x128'>
+      <a class='item' id='userName'></a>
+    </div>
+    <div id='middle'>
+      <h1 class='title is-4' id='courtStatus'>Home Court</h1>
+      <p class='subtitle is-5' id='courtName'></p>
+      <span class='hidden' id='courtID'></span>
+      <a onclick='modals.openMoreInfo()'> See More</a>
+    </div>
+    <div id='bottom'>
+      <p class='title is-4'>Current Players</p>
+      <div id='current-checkins'>
+
+      </div>
+    </div>
+  </div>
+  <div id='bod'>
+    <div id='header'>
+      <a class='appname'>Got Next</a>
+      <a onclick='fbFunctions.logoutUser()' class='item'>Logout</a>
+    </div>
+
+    <div id='map'></div>
+    <!-- Single Court Info Modal -->
+    <div id='courtProfileModal'>
+      <div class='tile is-ancestor'>
+        <div class='tile is-vertical is-12'>
+          <div class='tile'>
+            <div class='tile is-parent is-vertical'>
+              <article class='tile is-child notification is-primary'>
+                <p class='title is-2' id='modalName'> Court Name </p>
+              </article>
+              <article class='tile is-child notification is-danger'>
+                <p class='title is-3' id='modalComments'> Court Comments </p>
+                <p class="control">
+                  <textarea class="textarea" placeholder="Leave a comment about the court"></textarea>
+                  <div class='buttons'>
+                    <a class='button is-medium' onclick='modals.clearCommentBox()'>Clear Comment</a><a class='button is-medium' onclick='modals.postComment()'>Post Comment</a>
+                  </div>
+                </p>
+              </article>
+            </div>
+            <div class='tile is-parent'>
+              <article class='tile is-child notification is-primary'>
+                <p class='title is-3'> Court Details </p>
+                <p class='subtitle is-5' id='modalRating'></p>
+                <div id='modalReviews'></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id='userProfileModal' class='modal'></div>
+  </div>
+</div>
+
+
+
+<div class='media social-template'>
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class='checkinPic'>
+      <!-- Facebook Profile Image -->
+    </p>
+  </figure>
+  <div class='media-content'>
+    <div class='content'>
+      <!-- Facebook Name -->
+      <p>
+        <strong class='checkinUsername'></strong>
+        <br>
+        <span class='checkinTime'></span>
+      </p>
+      <!-- Parse this to a real time -->
+    </div>
+  </div>
+</div>

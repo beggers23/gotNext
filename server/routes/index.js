@@ -1,20 +1,25 @@
-// var express = require('express'),
-//     router = express.Router(),
-//     /*
-//       'path' is needed because relative paths ../../ are considered malicious
-//       when importing modules in node. Example: importing routes in index.js
-//     */
-//     path = require('path');
+var express = require('express');
+var router = express.Router();
+var session = require('express-session');
+var passport = require('../lib/passportStrategy.js');
+var User = require('../models/user.js');
+
+
+router.get('/', function(req, res){
+  res.render('index');
+});
+
+// router.get('/auth/facebook', passport.authenticate('facebook', {session: true, scope: ['email','user_friends','public_profile']} ));
 //
-// router.get('/', function(req, res, next) {
-//   res.render( path.resolve('client/public/views/index.ejs') );
-// });
+// router.get('/auth/facebook/callback', passport.authenticate('facebook', {session: true, successRedirect: '/profile', failureRedirect: '/login' } ));
 //
-//
-// router.get('/profile', function(req, res, next){
-//   console.log( req );
-//   res.render('profile');
+// router.get('/user', function(req, res){
+//   res.send({user: req.user});
 // })
-//
-//
-// module.exports = router;
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+})
+
+module.exports = router;

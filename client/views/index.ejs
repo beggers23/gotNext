@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- ng-app='GotNext' -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Index</title>
+  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/styles.css" media="screen" title="no title" charset="utf-8">
+  <title>SIGNED IN</title>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwMlqGemsgxapOyVFfYwMpmCNv82-3Sko&libraries=placeses,visualization,drawing,geometry,places" defer></script>
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="/js/facebook.js" charset="utf-8"></script>
+    <script src="/js/maps.js" charset="utf-8"></script>
+    <script src="/js/modals.js" charset="utf-8"></script>
+    <script src="/js/scripts.js" charset="utf-8"></script>
+
+    <div id='loggedout'>
+      <% include partials/loggedout %>
+    </div>
+
+    <!-- ng-controller='MapsController' -->
+    <div id='loggedin'>
+      <% include partials/loggedin %>
+    </div>
+  </body>
+</html>
