@@ -2,8 +2,8 @@ var currentUser = {};
 var fbFunctions = {};
 
 fbFunctions.statusChangeCallback = function(response){
-  console.log('Status Change Callback');
-  console.log(response);
+  // console.log('Status Change Callback');
+  // console.log(response);
   if( response.status === 'connected'){
     $("#loggedout").hide();
     $('#loggedin').show();
@@ -30,11 +30,10 @@ fbFunctions.fields = 'email,id,name,picture.height(961),friends';
 
 
 fbFunctions.getUserInfo = function(){
-  console.log('getUserInfo()');
+  // console.log('getUserInfo()');
   FB.api('/me', {fields: fbFunctions.fields }, function(response){
     //Get info from the Users API that matches the info found here..
-    console.log( response );
-    users.renderProfileBox( response );
+    // console.log( response );
     $.ajax({
       method: 'get',
       url: '/api/users/'+response.id,
@@ -42,6 +41,7 @@ fbFunctions.getUserInfo = function(){
         if( data.user[0] != null ){
           console.log( 'found one' );
           currentUser = data.user[0];
+          users.renderProfileBox( data.user[0] );
         }
         else {
           console.log('creating');
@@ -50,7 +50,7 @@ fbFunctions.getUserInfo = function(){
               displayName: response.name,
               email: response.email,
               facebookID: response.id,
-              picture: response.picture.data.url,
+              picture: response.picture,
               friends: response.friends.data,
               checkins: []
             }
@@ -64,11 +64,12 @@ fbFunctions.getUserInfo = function(){
   });
 }
 
+ 
 fbFunctions.otherUsers = 'name,id,picture.height(961)'
 
-fbFunctions.findOneUser = function ( userID ){
+fbFunctions.findOneUser = function ( userID, cb ){
   FB.api('/'+userID, {fields: fbFunctions.otherUsers}, function(response){
-    console.log( response );
+    cb( response );
   });
 }
 
@@ -113,7 +114,7 @@ window.fbAsyncInit = function(){
   });
 
   FB.getLoginStatus(function(response) {
-    console.log('FB.getLoginStatus()');
+    // console.log('FB.getLoginStatus()');
     fbFunctions.statusChangeCallback(response);
   });
 

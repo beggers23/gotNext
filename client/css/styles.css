@@ -10,10 +10,24 @@
 }
 
 #main {
-  height: 90vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: row;
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  color: #69707a !important;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+a:hover {
+  color: black !important;
 }
 
 /* HEADER STYLES */
@@ -33,32 +47,42 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #69707a;
+}
+
+.clicker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  width: 80vw;
+  height: 10vh;
 }
 
 .appname {
-  width: 60vw;
+  width: 40vw;
   height: 10vh;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #69707a;
   font-size: 4rem;
 }
 
+.middleware {
+  width: 20vw;
+  height: 10vh;
+  border-bottom: 2px solid #69707a;
+}
+
 #userName{
-  border-right: 1px solid black;
+  border-right: 1px solid #69707a;
   border-bottom: none;
 }
+
 #userProfilePic{
   border-radius: 50%;
   overflow-x: hidden;
 }
-
-.item:link, .item:visited {
-  color: black;
-  text-decoration: none;
-}
-
 .social-template{
   display: none;
 }
@@ -70,6 +94,39 @@
   height: 100vh;
 }
 
+#inside {
+  height: 90vh;
+  width: 80vw;
+  position: relative;
+}
+#xout{
+  position: absolute;
+  top: .3em;
+  right: .3em;
+}
+
+#xout:hover{
+  cursor: pointer;
+}
+
+.otherUserTemp{
+  display: none;
+}
+
+#otherUserModal{
+  display:none;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.otherProfilePic{
+  width: 100%;
+}
+
+#otherUserCard{
+  text-align: center;
+}
 
 #userProfileModal{
   width: 80vw;
@@ -77,13 +134,33 @@
   display: none;
 }
 
-#courtProfileModal{
-  padding: 1em;
-  width: 80vw;
-  height: 90vh;
-  /*display: none;*/
+#contentWindow {
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
+#courtProfileModal{
+  display: none;
+  padding: 1em;
+  width: 80vw;
+  height: 40vh;
+  z-index: 1;
+}
+
+#buttonText{
+  font-weight: bold;
+}
+
+#arrow{
+  font-size: 3em;
+  -webkit-transition: transform 1s;
+  transition: transform 1s;
+}
+
+#courtReviews {
+  height: 35vh;
+  overflow-y: scroll;
+}
 .review {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -96,9 +173,17 @@
 }
 
 #map {
-  display: none;
+  /*display: none;*/
   width: 80vw;
-  height: 90vh;
+  height: 80vh;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+#courtInfoButton {
+  width: 80vw;
+  height: 10vh;
+  border-top: 5px solid #69707a;
 }
 
 /*MAP STYLES*/
@@ -106,7 +191,7 @@
   text-align: center;
   height: 100vh;
   width: 20vw;
-  border-right: 1px solid black;
+  border-right: 1px solid #69707a;
 }
 
 .checkinPic{
@@ -115,10 +200,24 @@
   overflow-x: hidden;
 }
 
+.checkinUsername {
+  text-decoration: underline;
+  color: #69707a;
+  text-decoration-color: #69707a;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.checkinUsername:hover{
+  cursor: pointer;
+  color: black;
+  text-decoration-color: black;
+}
+
 #top{
-  height: 40vh;
+  height: 30vh;
   width: 20vw;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #69707a;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -126,13 +225,34 @@
 }
 #middle {
   text-align: center;
-  height: 20vh;
+  height: 15vh;
   width: 20vw;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #69707a;
+}
+
+.top-half{
+  height: 11vh;
+}
+
+.bottom-half {
+  height: 4vh;
 }
 
 #bottom {
-  height: 40vh;
+  height: 55vh;
   width: 20vw;
+}
+
+#currentPlayersTitle{
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#current-checkins {
+  border-top: 2px solid #69707a;
+  height: 45vh;
+  padding: .5em;
   overflow-y: scroll;
 }

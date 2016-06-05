@@ -3,62 +3,98 @@
     <div id='top' class='card'>
       <img id='userProfilePic' class='image is-128x128'>
       <a class='item' id='userName'></a>
-    </div>
-    <div id='middle'>
-      <h1 class='title is-4' id='courtStatus'>Home Court</h1>
-      <p class='subtitle is-5' id='courtName'></p>
-      <span class='hidden' id='courtID'></span>
-      <a onclick='modals.openMoreInfo()'> See More</a>
-    </div>
-    <div id='bottom'>
-      <p class='title is-4'>Current Players</p>
-      <div id='current-checkins'>
+    </div> <!-- Current User info -->
 
+    <div id='middle'>
+      <div class='top-half'>
+        <h1 class='title is-4' id='courtStatus'>Home Court</h1>
+        <p class='subtitle is-5' id='courtName'></p>
+        <span class='hidden' id='courtID'></span>
       </div>
-    </div>
-  </div>
+      <div class='bottom-half'>
+      </div>
+    </div> <!-- The Court Name -->
+
+    <div id='bottom'>
+      <section id='currentPlayersTitle'>
+        <p class='title is-4'>Current Players</p>
+      </section>
+      <div id='current-checkins'></div> <!-- Current Checkins -->
+    </div><!-- Bottom - Who is checked in -->
+  </div> <!-- Sidebar -->
   <div id='bod'>
     <div id='header'>
       <a class='appname'>Got Next</a>
+      <div class='middleware'></div>
       <a onclick='fbFunctions.logoutUser()' class='item'>Logout</a>
-    </div>
+    </div> <!-- Header -->
 
-    <div id='map'></div>
-    <!-- Single Court Info Modal -->
-    <div id='courtProfileModal'>
-      <div class='tile is-ancestor'>
-        <div class='tile is-vertical is-12'>
-          <div class='tile'>
-            <div class='tile is-parent is-vertical'>
-              <article class='tile is-child notification is-primary'>
-                <p class='title is-2' id='modalName'> Court Name </p>
-              </article>
-              <article class='tile is-child notification is-danger'>
-                <p class='title is-3' id='modalComments'> Court Comments </p>
-                <p class="control">
-                  <textarea class="textarea" placeholder="Leave a comment about the court"></textarea>
-                  <div class='buttons'>
-                    <a class='button is-medium' onclick='modals.clearCommentBox()'>Clear Comment</a><a class='button is-medium' onclick='modals.postComment()'>Post Comment</a>
-                  </div>
-                </p>
-              </article>
-            </div>
-            <div class='tile is-parent'>
-              <article class='tile is-child notification is-primary'>
-                <p class='title is-3'> Court Details </p>
-                <p class='subtitle is-5' id='modalRating'></p>
-                <div id='modalReviews'></div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div id='userProfileModal' class='modal'></div>
-  </div>
+
+    <div id='inside'>
+
+
+      <div id='otherUserModal'>
+
+      </div> <!-- Other Users Modal -->
+
+
+      <div id='map'></div><!-- Map -->
+
+      <!-- Single Court Info Modal -->
+      <div id='contentWindow'>
+        <a class='clicker dark' id='courtInfoButton' onclick='modals.openMoreInfo()'><i id='arrow' class='fa fa-chevron-up'></i></a>
+        <div id='courtProfileModal'>
+          <div class='tile is-ancestor'>
+            <div class='tile is-vertical is-12'>
+              <div class='tile'>
+                <div class='tile is-parent is-vertical'>
+                  <article class='tile is-child notification is-dark'>
+                    <p class='title is-2' id='modalName'> Court Name </p>
+                    <p class='subtitle is-4' id='modalAddress'></p>
+                    <p class='subtitle is-5' id='modalRating'></p>
+                  </article>
+                </div> <!-- Court Name Tile -->
+                <div class='tile is-parent'>
+                  <article class='tile is-child notification is-dark' id='courtReviews'>
+                    <p class='title is-3'> Court Reviews </p>
+                    <div id='modalReviews'></div>
+                  </article>
+                </div><!-- Court Reviews Tile -->
+              </div> <!-- Tile -->
+            </div><!-- Vertical Tile -->
+          </div> <!-- Ancestor Tile -->
+        </div> <!-- Court Profile Modal-->
+      </div> <!-- content Window -->
+
+
+      <div id='currentUserProfileModal'></div><!-- User Profile Modal -->
+    </div> <!-- Inside -->
+  </div> <!-- Bod -->
 </div>
 
+
+<div class='otherUserTemp'>
+  <div class='card' id='otherUserCard'>
+    <div class='card-image'>
+      <figure class='image is1by1'>
+        <img id='otherProfilePic' src=''></figure>
+      </figure>
+      <span class='hidden' id='otherUserID'></span>
+      <i class='fa fa-close fa-2x' id='xout'></i>
+    </div> <!-- Card Image -->
+    <div class='card-content'>
+      <div class='content'>
+        <p class='subtitle is-3' id='otherUserName'></p>
+        <p class='subtitle is-4' id='otherHomeCourt'></p>
+      </div> <!-- content -->
+    </div> <!-- card content -->
+    <div class='card-footer'>
+      <a onclick='users.addToFriends()' class='card-footer-item'>Add to Friends</a>
+      <a onclick='users.sendMessage()' class='card-footer-item'>Send Message</a>
+    </div> <!-- card footer -->
+  </div> <!-- Card -->
+</div>
 
 
 <div class='media social-template'>
@@ -68,11 +104,16 @@
       <!-- Facebook Profile Image -->
     </p>
   </figure>
+
+
   <div class='media-content'>
     <div class='content'>
       <!-- Facebook Name -->
       <p>
-        <strong class='checkinUsername'></strong>
+        <strong onclick='modals.openOtherUsers( this )'>
+          <span class='checkinUsername'></span>
+          <span class='hidden checkinUserId'></span>
+        </strong>
         <br>
         <span class='checkinTime'></span>
       </p>

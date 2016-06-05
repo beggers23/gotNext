@@ -10,7 +10,14 @@ var UserSchema = mongoose.Schema({
   email: {type: String},
   checkins: {type: Array},
   homecourt: {type: String},
-  picture: {type: String},
+  picture: {
+    data: {
+      height: {type: Number},
+      is_silhouette: {type: Boolean},
+      width: {type: Number },
+      url: { type: String }
+    }
+  },
   friends: {type: Array},
   comments: {type: Array}
 },{ timestamps: true });

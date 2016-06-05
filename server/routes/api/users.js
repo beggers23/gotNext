@@ -10,7 +10,6 @@ userRouter.get('/', function(req, res){
 });
 
 userRouter.get('/:facebookID', function(req, res){
-  console.log( req.params );
   User.find({ facebookID: req.params.facebookID }, function(err, user){
     res.json({user: user });
   })
@@ -18,7 +17,6 @@ userRouter.get('/:facebookID', function(req, res){
 
 
 userRouter.post('/', function(req, res){
-  console.log( req.body );
   User.create(req.body.user, function(err, user){
     res.json({ user: user });
   })
