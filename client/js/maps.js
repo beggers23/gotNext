@@ -105,44 +105,59 @@ maps.getCourtInfo = function( place_id ){
 }
 
 
-
-maps.updateSidebar = function( results ){
-  var court = {
-    name: results.name,
-    address: results.formatted_address,
-    courtID: results.place_id,
-    checkins: []
-  }
-
-  if( currentUser.homecourt == court.courtID ){
-    $('#courtStatus').text('Home Court');
-  }else {
-    $('#courtStatus').text('Court Name');
-  }
-
-  $('#courtName').text( court.name );
-
-  modals.updateModal( results );
-
-
-  for(var i=0; i<checkins.all.length; i++){
-    if( results.place_id === checkins.all[i].court_id ){
-      court.checkins.push( checkins.all[i] );
+maps.grabCourts = function( courtID, cb ){
+  var newArr =[];
+  for( var i=0; i<checkins.all.length; i++){
+    if( courtID === checkins.all[i].court_id ){
+      newArr.push( checkins.all[i] );
     }
   }
-  // Court.checkins is never cleared until page is reloaded - why did I write this...
-  $('#current-checkins').empty();
-
-  if( court.checkins.length > 0 ){
-    users.findManyUsers( court.checkins , maps.renderSocial );
-
-    // Don't call this one - Call your users DB. You Have your own friends list dipshit...
-    // fbFunctions.findManyUsers( court.checkins , maps.renderSocial );
-  }else {
-    var emptyCourt = $('<p class="subtitle is-5">Court is Empty</p>');
-    $('#current-checkins').append( emptyCourt );
-  }
+  cb( newArr );
 }
+
+
+maps.updateSidebar = function( results ){
+
+
+  console.log( 'running update sidebar ');
+  $('#current-checkins').empty();
+  if( currentUser.homecourt === results.place_id ){
+    console.log('same court');
+    $('#courtStatus').text('Home Court');
+    $('#currentUserHomeCourt').text( results.name );
+  }else {
+    console.log('different court');
+    $('#courtStatus').text('Court Name');
+  }
+  $('#courtName').text( results.name );
+
+  //Not registering the checkins in time...
+  modals.updateModal( results );
+
+  maps.grabCourts( results.place_id, function( data ){
+    if( data.length > 0){
+      users.findManyUsers( data, maps.renderSocial );
+    }else{
+      var emptyCourt = $('<p class="subtitle is-5">Court is Empty</p>');
+      $('#current-checkins').append( emptyCourt );
+    }
+  });
+}
+
+
+// maps.renderIt = function( arr ){
+//   console.log( arr );
+//   // if( courtCheckins.length > 0 ){
+//   //   users.findManyUsers( courtCheckins , maps.renderSocial );
+//   //
+//   //   // Don't call this one - Call your users DB. You Have your own friends list dipshit...
+//   //   // fbFunctions.findManyUsers( court.checkins , maps.renderSocial );
+//   // }else {
+//   //   var emptyCourt = $('<p class="subtitle is-5">Court is Empty</p>');
+//   //   $('#current-checkins').append( emptyCourt );
+//   // }
+//
+// }
 
 
 function minTommss(minutes){
@@ -152,12 +167,12 @@ function minTommss(minutes){
  return sign + (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
 }
 
+
 //render social needs arr[0] to be user info - arr[1] to be checkin info
-
-
 maps.renderSocial = function( arr ){
   //arr[0] is the user Data
   //arr[1] is the checkin data
+  console.log( 'running renderSocial ');
   var hours;
   var minutes;
   var now = new Date();
@@ -166,6 +181,7 @@ maps.renderSocial = function( arr ){
   var thenTime = (then.getHours()*60)+then.getMinutes()
   var getTimeNorm = (nowTime-thenTime)/60;
   var getTimeRev = ( thenTime-nowTime)/60;
+
 
   if( getTimeNorm > 0 ){
     var time = minTommss( getTimeNorm );
@@ -183,15 +199,16 @@ maps.renderSocial = function( arr ){
   newSocial.removeClass('social-template');
   newSocial.find('.checkinPic').attr('src', arr[0].picture.data.url);
   newSocial.find('.checkinUsername').text(arr[0].displayName);
-  newSocial.find('.checkinUserId').text(arr[0].id );
+  newSocial.find('.checkinUserId').text(arr[0].facebookID );
+
   if( hours > 0 ){
     newSocial.find('.checkinTime').text('Checked in '+hours+' hours, '+minutes+' minutes ago.');
-  }else{
+  }else if( isNaN( minutes )|| isNaN( hours ) || minutes === 0 ){
+    newSocial.find('.checkinTime').text('Checked in just now');
+  }else {
     newSocial.find('.checkinTime').text('Checked in '+minutes+' minutes ago.');
   }
-
   $('#current-checkins').append(newSocial);
-
 }
 
 
@@ -202,5 +219,9 @@ maps.checkIn = function(){
     user_id: currentUser._id,
     facebook_id: currentUser.facebookID
   }
+  checkins.all.push( checkin );
+  maps.getCourtInfo( checkin.court_id );
   checkins.createNew( checkin );
 }
+
+// I can create a new checkin and update the sidebar separately. I don't need to pass the brand new checkin object that has been posted to the back end. I can just update it with this info...

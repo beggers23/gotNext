@@ -9,7 +9,7 @@ var UserSchema = mongoose.Schema({
   displayName: { type: String },
   email: {type: String},
   checkins: {type: Array},
-  homecourt: {type: String},
+  homecourt: {type: String, default: ''},
   picture: {
     data: {
       height: {type: Number},
@@ -18,7 +18,10 @@ var UserSchema = mongoose.Schema({
       url: { type: String }
     }
   },
-  friends: {type: Array},
+  friends: [{
+    name: {type: String},
+    id: {type: String}
+  }],
   comments: {type: Array}
 },{ timestamps: true });
 

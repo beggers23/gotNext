@@ -64,7 +64,7 @@ fbFunctions.getUserInfo = function(){
   });
 }
 
- 
+
 fbFunctions.otherUsers = 'name,id,picture.height(961)'
 
 fbFunctions.findOneUser = function ( userID, cb ){

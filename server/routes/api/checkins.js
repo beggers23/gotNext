@@ -11,7 +11,6 @@ checkinRouter.get('/', function(req, res, next){
 
 
 checkinRouter.post('/', function(req, res){
-  console.log( req.body );
   Checkin.create( req.body, function(err, checkin){
     res.json( {checkin: checkin} );
   })

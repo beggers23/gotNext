@@ -65,7 +65,7 @@ a:hover {
   display: flex;
   align-items: center;
   border-bottom: 2px solid #69707a;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .middleware {
@@ -95,9 +95,9 @@ a:hover {
 }
 
 #inside {
+  position: relative;
   height: 90vh;
   width: 80vw;
-  position: relative;
 }
 #xout{
   position: absolute;
@@ -128,13 +128,9 @@ a:hover {
   text-align: center;
 }
 
-#userProfileModal{
-  width: 80vw;
-  height: 90vh;
-  display: none;
-}
-
 #contentWindow {
+  position: absolute;
+  top: 80vh;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
@@ -173,11 +169,8 @@ a:hover {
 }
 
 #map {
-  /*display: none;*/
   width: 80vw;
-  height: 80vh;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  height: 90vh;
 }
 
 #courtInfoButton {
@@ -255,4 +248,123 @@ a:hover {
   height: 45vh;
   padding: .5em;
   overflow-y: scroll;
+}
+
+
+#currentUserProfileModal{
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+
+
+#fullContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80vh;
+  width: 80vw;
+  z-index: 0;
+}
+
+
+
+.container {
+  display: flex;
+  flex-flow: row;
+}
+.left-side {
+  text-align: center;
+  width: 40%;
+  height: 80vh;
+  background: white;
+}
+.right-side{
+  text-align: center;
+  width: 60%;
+  height: 80vh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.half{
+  height: 50%;
+  width: 100%;
+}
+.full-wide{
+  display: flex;
+  flex-flow: column;
+  align-content: space-around;
+  height: 100%;
+  width: 100%;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-name:hover{
+  cursor:pointer;
+  color: black;
+}
+
+.stylin:after{
+  content: '';
+  display: block;
+  height: 5px;
+  width: 0;
+  background: transparent;
+  transition: width 1s ease, background-color 1s ease;
+}
+.stylin:hover:after{
+  width: 100%;
+  background: black;
+  transition: width 1s ease, background-color 1s ease;
+}
+
+.edit-name:after{
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0;
+  background: transparent;
+  transition: width .5s ease, background-color .5s ease;
+}
+
+.edit-name:hover:after{
+  width: 100%;
+  background: black;
+  transition: width .5s ease, background-color .5s ease;
+}
+
+.fifty {
+  width: 50%;
+}
+.custo{
+  text-align: center;
+  font-size: 2em;
+  border: none;
+  background: transparent;
+  color: #69707a;
+}
+.custo:focus{
+  color: black;
+  outline: none;
+}
+
+.fixit{
+  max-height: 25vh;
+}
+
+
+.edits {
+  text-align: center;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-content: center;
+  padding-left: .5em;
+  padding-right: .5em;
 }

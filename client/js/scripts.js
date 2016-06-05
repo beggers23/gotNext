@@ -25,8 +25,9 @@ users.findOne = function( fbId ){
     success: function( data ){
       modals.renderOtherUserBox( data );
     }
-  })
+  });
 }
+
 var testUser = ['Dick Alabbafebieaj Martinazzistein', 'huamivg_martinazzistein_1464722290@tfbnw.net' , '1password2']
 
 
@@ -61,6 +62,8 @@ users.createNewUser = function( data ){
 }
 
 users.update = function( payload ) {
+  console.log(' update user ');
+  console.log( payload );
   $.ajax({
     url: '/api/users/'+currentUser._id,
     method: 'put',
@@ -73,7 +76,7 @@ users.update = function( payload ) {
 
 
 checkins.updateHome = function(){
-
+  console.log( 'running update home');
   var arr = currentUser.checkins;
   if( arr.length == 0){
     return null;
@@ -117,22 +120,15 @@ checkins.getAll = function(){
         checkins.all.push( data[i] )
         //Append the checkin, don't just push it. It won't update cause it's not angular!
       }
-
-      var count = 0;
-      for( var j=0; j< checkins.all.length; j++){
-        if( checkins.all[j].facebook_id === currentUser.facebookID ){
-          count++;
-        } else {
-          console.log( checkins.all[j].facebook_id );
-        }
-      }
+      checkins.updateHome();
     }
+    console.log( data );
   });
 }
 
 // [userinfo, checkininfo]
 checkins.createNew = function( response ){
-  console.log( response );
+  console.log( 'running createNew Checkin');
   $.ajax({
     url: '/api/checkins',
     method: 'post',
@@ -143,10 +139,8 @@ checkins.createNew = function( response ){
       console.log( 'new checkin', data );
       //pushing the checkin into the user was a good idea... what does the
       //A user holds an array of checkins.. is it the id or the whole object?
-      currentUser.checkins.push( data.checkin ) //? maybe ?
-
+      // currentUser.checkins.push( data.checkin ) //? maybe ?
       checkins.getAll();
-      checkins.updateHome();
       // users.update( data ); // WHY THE FUCK WOULD YOU PASS CHECKIN DATA TO UPDATE A USER?
 
       //This next function is needed to render the social section of the sidebar for every person that is checked in at that location

@@ -22,8 +22,8 @@ userRouter.post('/', function(req, res){
   })
 })
 
-userRouter.put('/:id', function(req, res){
-  User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+userRouter.put('/:facebookID', function(req, res){
+  User.findOneAndUpdate( { facebookID: req.params.facebookID }, req.body, {new: true}, function(err, user){
     res.json( user );
   });
 });

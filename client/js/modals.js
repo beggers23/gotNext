@@ -31,7 +31,7 @@ modals.openOtherUsers = function( results ){
 }
 
 modals.renderOtherUserBox = function( info ){
-  var user = info.users[0]
+  var user = info.user[0]
   var displayName = user.displayName;
   var picture = user.picture.data.url;
   var checkins = user.checkins;
@@ -60,17 +60,40 @@ modals.renderOtherUserBox = function( info ){
   });
 }
 
+var pos;
 
 modals.openMoreInfo = function(){
-  if( $('#map').height() > 300 ) {
-    $('#map').css({'height': '40vh'});
-    $('#contentWindow').css({'height': '50vh'});
-    $('#arrow').css({'transform':'rotate(-180deg)'});
-    $('#courtProfileModal').show();
-  }else {
-    $('#map').css({'height': '80vh'});
-    $('#contentWindow').css({'height': '10vh'});
+  if( pos ) {
+    pos = false;
+    $('#contentWindow').css({'top': '80vh'});
     $('#arrow').css({'transform':'rotate(0deg)'});
     $('#courtProfileModal').slideToggle('slow');
+  }else {
+    pos = true;
+    $('#contentWindow').css({'top': '40vh'});
+    $('#arrow').css({'transform':'rotate(-180deg)'});
+    $('#courtProfileModal').show();
   }
+}
+
+modals.showNewImageLink = function(){
+  $('#currentUserProfilePicture').attr('src', $('#updateProfileUrl').val() );
+}
+
+// var clydePic = "https://scontent.xx.fbcdn.net/v/t1.0-1/12524203_10205418162278191_2528683742764977441_n.jpg?oh=8e274615859ce6159dc5e7a26219edf4&oe=58065FC2"
+
+modals.renderUserProfile = function() {
+  $('#map').toggle(700);
+  $('#currentUserProfileModal').toggle(700);
+  //currentUser.checkins
+  //currentUser.friends
+  //currentUser.displayName
+  //currentUser.picture.data.url
+  //currentUser.homecourt - get data from - Dealt with
+  //currentUser.comments - if implemented
+  $('#updateProfileUrl').val( currentUser.picture.data.url );
+  $('#currentUserProfilePicture').attr('src', currentUser.picture.data.url );
+  $('#currentUserDisplayName').val(currentUser.displayName);
+  $("#currentUserEmail").val(currentUser.email);
+  $('#currentUserCheckinTotal').text('Total Checkins: '+ currentUser.checkins.length);
 }

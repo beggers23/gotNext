@@ -2,7 +2,9 @@
   <div id='side'>
     <div id='top' class='card'>
       <img id='userProfilePic' class='image is-128x128'>
-      <a class='item' id='userName'></a>
+      <span class='col stylin'>
+        <a class='item' onclick='modals.renderUserProfile()' id='userName'></a>
+      </span>
     </div> <!-- Current User info -->
 
     <div id='middle'>
@@ -32,15 +34,59 @@
 
 
     <div id='inside'>
-
-
       <div id='otherUserModal'>
-
       </div> <!-- Other Users Modal -->
-
-
-      <div id='map'></div><!-- Map -->
-
+      <div id='fullContent'>
+        <div id='map'></div><!-- Map -->
+        <div id='currentUserProfileModal'>
+          <div class="container">
+            <div class="left-side">
+              <p class='title'> User Friends </p>
+            </div>
+            <div class="right-side">
+              <div class="half">
+                <p class='title'>Your Information</p>
+                <section class='full-wide'>
+                  <p class='control edits'>
+                    <span class='subtitle is-3 fifty edit-name' onclick='modals.findThatBox(this)'>Change Your Name</span>
+                    <span class='fifty edit-name'><input class='custo' type='text' id='currentUserDisplayName' placeholder='User Name'></span>
+                  </p>
+                  <p class='control edits'>
+                    <span class='subtitle is-3 fifty edit-name' onclick='modals.findThatBox(this)'>Change Your Email</span>
+                    <span class='fifty edit-name'><input class='custo' type='email' id="currentUserEmail" placeholder='User Email'></span>
+                  </p>
+                  <p class='control edits'>
+                    <span class='fifty subtitle is-3'>Your Home Court: </span><span class='fifty subtitle is-3' id='currentUserHomeCourt'></span>
+                  </p>
+                </section>
+              </div>
+              <div class="half">
+                <section class='full-wide'>
+                  <p class='control edits'>
+                    <span class='fifty edit-name'>
+                      <img class='fixit' id='currentUserProfilePicture'>
+                    </span>
+                    <span class='col'>
+                      <span class='edit-name subtitle is-3'>Edit Profile Picture</span>
+                      <span class='edit-name'><input class='custo' type='text' id='updateProfileUrl' placeholder='Profile Picture URL'></span>
+                      <a class='button' id='viewImage' onclick='modals.showNewImageLink()'>View Image</a>
+                    </span>
+                  </p>
+                  <p class='control edits'>
+                    <span class='col fifty'>
+                      <a class='button'>Clear Checkins</a>
+                      <span class='total' id='currentUserCheckinTotal'></span>
+                    </span>
+                    <span class='col fifty'>
+                      <a class='button'>Update User </a>
+                    </span>
+                  </p>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div><!-- User Profile Modal -->
+      </div>
       <!-- Single Court Info Modal -->
       <div id='contentWindow'>
         <a class='clicker dark' id='courtInfoButton' onclick='modals.openMoreInfo()'><i id='arrow' class='fa fa-chevron-up'></i></a>
@@ -66,9 +112,6 @@
           </div> <!-- Ancestor Tile -->
         </div> <!-- Court Profile Modal-->
       </div> <!-- content Window -->
-
-
-      <div id='currentUserProfileModal'></div><!-- User Profile Modal -->
     </div> <!-- Inside -->
   </div> <!-- Bod -->
 </div>
