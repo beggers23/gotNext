@@ -16,6 +16,29 @@ users.addToFriends = function( result ){
   users.update( update );
 }
 
+users.removeFromFriends = function( ){
+  console.log( 'clicked' )
+}
+
+
+var names = [
+  { name: 'brendan'},
+  { name: 'clyde' },
+  { name: 'joe' },
+  { name: 'bob' }
+]
+
+function findAndPop( val, arr ){
+  for(var i=0;i< arr.length; i++){
+    if( arr[i].name === val ){
+      //remove from friends list
+      var newArr = arr.splice(i, 1);
+      console.log( arr );
+    }
+  }
+}
+
+
 users.sendMessage = function() {
   console.log(' Send Message ');
 }
