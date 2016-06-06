@@ -42,17 +42,20 @@
           <div class="container">
             <div class="left-side">
               <p class='title'> User Friends </p>
+              <div class='feed'>
+
+              </div>
             </div>
             <div class="right-side">
               <div class="half">
                 <p class='title'>Your Information</p>
                 <section class='full-wide'>
                   <p class='control edits'>
-                    <span class='subtitle is-3 fifty edit-name' onclick='modals.findThatBox(this)'>Change Your Name</span>
+                    <span class='subtitle is-3 fifty edit-name'>Change Your Name</span>
                     <span class='fifty edit-name'><input class='custo' type='text' id='currentUserDisplayName' placeholder='User Name'></span>
                   </p>
                   <p class='control edits'>
-                    <span class='subtitle is-3 fifty edit-name' onclick='modals.findThatBox(this)'>Change Your Email</span>
+                    <span class='subtitle is-3 fifty edit-name'>Change Your Email</span>
                     <span class='fifty edit-name'><input class='custo' type='email' id="currentUserEmail" placeholder='User Email'></span>
                   </p>
                   <p class='control edits'>
@@ -70,15 +73,21 @@
                       <span class='edit-name subtitle is-3'>Edit Profile Picture</span>
                       <span class='edit-name'><input class='custo' type='text' id='updateProfileUrl' placeholder='Profile Picture URL'></span>
                       <a class='button' id='viewImage' onclick='modals.showNewImageLink()'>View Image</a>
+                      <a class='button' id='resetImage' onclick='modals.resetImage()'>Reset Image</a>
                     </span>
                   </p>
                   <p class='control edits'>
-                    <span class='col fifty'>
-                      <a class='button'>Clear Checkins</a>
+                    <span class='col third'>
+                      <a class='button is-danger invert' onclick='modals.showDeleteModal()' id='deleteUserButton'>Delete Account</a>
+                      <span>Back To Hoop Dreaming</span>
+                    </span>
+                    <span class='col third'>
+                      <a class='button is-warning invert' onclick='modals.clearCheckins()' id='clearUserCheckins'>Start Fresh</a>
                       <span class='total' id='currentUserCheckinTotal'></span>
                     </span>
-                    <span class='col fifty'>
-                      <a class='button'>Update User </a>
+                    <span class='col third'>
+                      <a class='button is-dark invert' onclick='modals.updateUser()' id='updateUserButton'>Update Account</a>
+                      <span>Fix Ya Up Right Quick</span>
                     </span>
                   </p>
                 </section>
@@ -139,6 +148,33 @@
   </div> <!-- Card -->
 </div>
 
+<!-- Mad Templates Down Here Yo  -->
+
+<div class='friend-temp notShowing'>
+  <section class='friend-left'>
+    <div class='hunnid'>
+      <img class='friend-img'>
+    </div>
+  </section>
+  <section class='friend-right'>
+    <p class='title is-4 friendName'></p>
+    <a class='button hunnid'>Send Message</a>
+    <a class='button hunnid'>Delete Friend</a>
+  </section>
+</div>
+
+
+<div class='modal hidden' id='areyousure'>
+  <div class='box'>
+    <p class='title is-1'> ARE YOU SURE YOU WANT TO STOP BALLIN?</p>
+    <div class='buttons'>
+      <a class='button is-danger' onclick='modals.deleteUser()' >Delete FOREVER</a>
+      <a class='button is-success' onclick='modals.closeDeleteModal()' >Stick Around A Minute</a>
+    </div>
+  </div>
+</div>
+
+
 
 <div class='media social-template'>
   <figure class="media-left">
@@ -147,8 +183,6 @@
       <!-- Facebook Profile Image -->
     </p>
   </figure>
-
-
   <div class='media-content'>
     <div class='content'>
       <!-- Facebook Name -->

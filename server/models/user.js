@@ -18,10 +18,7 @@ var UserSchema = mongoose.Schema({
       url: { type: String }
     }
   },
-  friends: [{
-    name: {type: String},
-    id: {type: String}
-  }],
+  friends: {type: Array},
   comments: {type: Array}
 },{ timestamps: true });
 

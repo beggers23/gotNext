@@ -118,7 +118,6 @@ maps.grabCourts = function( courtID, cb ){
 
 maps.updateSidebar = function( results ){
 
-
   console.log( 'running update sidebar ');
   $('#current-checkins').empty();
   if( currentUser.homecourt === results.place_id ){

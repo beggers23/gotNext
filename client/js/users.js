@@ -28,6 +28,8 @@ var testUser = ['Dick Alabbafebieaj Martinazzistein', 'huamivg_martinazzistein_1
 
 users.findManyUsers = function(arr, cb){
   //gets the data of every user in the DB. If the checkins in the array that is passed to the function have a facebookID that matches one from the user, they will be put into an array and passed to a function that will render their information on the sidebar in the "Current Players Section"
+
+  //Testing it out with the renderUserFriends function - doesn't work cause the look is looking for arr[i].facebook_id which is specific to the checkins array, not the friends array that was pulled from Facebook info.
   $.ajax({
     method: 'get',
     url: '/api/users',
@@ -36,7 +38,7 @@ users.findManyUsers = function(arr, cb){
         for(var j=0; j<data.users.length; j++){
           if( arr[i].facebook_id === data.users[j].facebookID ){
             var newArr = [ data.users[j], arr[i] ];
-            cb( newArr )
+            cb( newArr );
           }
         }
       }
@@ -44,6 +46,21 @@ users.findManyUsers = function(arr, cb){
   });
 }
 
+users.findUserFriends = function( arr, cb){
+  $.ajax({
+    method: 'get',
+    url: '/api/users',
+    success: function( response ){
+      for( var i=0; i< arr.length; i++){
+        for( var j=0; j< response.users.length; j++){
+          if( arr[i].id === response.users[j].facebookID ){
+            cb( response.users[j] )
+          }
+        }
+      }
+    }
+  })
+}
 
 users.createNewUser = function( data ){
   $.ajax({

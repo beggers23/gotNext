@@ -12,7 +12,7 @@ userRouter.get('/', function(req, res){
 userRouter.get('/:facebookID', function(req, res){
   User.find({ facebookID: req.params.facebookID }, function(err, user){
     res.json({user: user });
-  })
+  });
 })
 
 
@@ -23,10 +23,17 @@ userRouter.post('/', function(req, res){
 })
 
 userRouter.put('/:facebookID', function(req, res){
+  console.log( req.body );
   User.findOneAndUpdate( { facebookID: req.params.facebookID }, req.body, {new: true}, function(err, user){
     res.json( user );
   });
 });
 
+
+userRouter.delete('/:facebookID', function(req, res){
+  User.findOneAndDelete({facebookID: req.params.facebookID }, function( err ){
+    console.log(' we dead ');
+  })
+})
 
 module.exports = userRouter;
