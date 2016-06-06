@@ -111,6 +111,7 @@ window.fbAsyncInit = function(){
     xfbml: true,
     status: true,
     oauth: true,
+    channelUrl: 'https://hoopdreamin.herokuapp.com/',
     version: 'v2.5'
   });
 
