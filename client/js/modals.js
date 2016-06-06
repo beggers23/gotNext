@@ -96,7 +96,6 @@ modals.renderUserProfile = function() {
 }
 
 modals.renderUserFriends = function( user ){
-
   var friend ="<section class='friend-left'>"+
       "<div class='hunnid'>"+
         "<img src="+user.picture.data.url+" class='friend-img'>"+
@@ -107,7 +106,6 @@ modals.renderUserFriends = function( user ){
       "<a class='button hunnid'>Send Message</a>"+
       "<a class='button hunnid'>Delete Friend</a>"+
     "</section>"
-
   var newDiv = $('<div class="friend-temp">').append( friend );
   $('#feed').append( newDiv );
 }
@@ -121,6 +119,8 @@ modals.updateUser = function() {
   var updating = currentUser;
   var truths = 0;
 
+  $('#currentUserProfilePicture').attr('src', $('#updateProfileUrl').val() );
+  $('#userProfilePic').attr('src', $('#updateProfileUrl').val() );
   updating.displayName = $('#currentUserDisplayName').val();
   $('#userName').text(updating.displayName);
   updating.email = $('#currentUserEmail').val();
