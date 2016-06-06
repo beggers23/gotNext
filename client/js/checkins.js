@@ -81,3 +81,15 @@ checkins.createNew = function( response ){
     }
   })
 }
+
+
+checkins.deleteCheckin = function( response ){
+  console.log( response.name );
+  $.ajax({
+    url:'/api/checkins/'+response.name,
+    type: 'DELETE',
+    success: function(){
+      console.log(' its deleted ');
+    }
+  })
+}

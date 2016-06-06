@@ -200,6 +200,11 @@ maps.renderSocial = function( arr ){
   newSocial.find('.checkinUsername').text(arr[0].displayName);
   newSocial.find('.checkinUserId').text(arr[0].facebookID );
 
+  // if( arr[0].facebookID === currentUser.facebookID ){
+  //   newSocial.find('.deleteCheckin').attr('name', arr[0]._id)
+  //   newSocial.find('.deleteCheckin').removeClass("hidden");
+  // }
+
   if( hours > 0 ){
     newSocial.find('.checkinTime').text('Checked in '+hours+' hours, '+minutes+' minutes ago.');
   }else if( isNaN( minutes )|| isNaN( hours ) || minutes === 0 ){
@@ -210,12 +215,10 @@ maps.renderSocial = function( arr ){
   $('#current-checkins').append(newSocial);
 }
 
-
 maps.checkIn = function(){
   var place_id = $('#venue-id').text();
   var checkin = {
     court_id: place_id,
-    user_id: currentUser._id,
     facebook_id: currentUser.facebookID
   }
   checkins.all.push( checkin );

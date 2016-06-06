@@ -29,8 +29,8 @@ modals.openOtherUsers = function( results ){
   var userId = attempt[1].innerText;
   users.findOne( userId );
 }
-var open;
 
+var open;
 modals.renderOtherUserBox = function( info ){
   var user = info.user[0]
   var displayName = user.displayName;
@@ -42,22 +42,18 @@ modals.renderOtherUserBox = function( info ){
   $('#otherUserModal').empty();
   var newModal = $('.otherUserTemp').clone();
   newModal.removeClass('otherUserTemp');
-
+  newModal.find('#friendButton').attr('name', user.facebookID+','+displayName );
   newModal.find('#otherUserName').text(displayName);
   newModal.find('#otherProfilePic').attr('src', picture );
 
   service = new google.maps.places.PlacesService( maps.map );
   service.getDetails( { placeId: homecourt }, function( results, status ){
-
     newModal.find('#otherHomeCourt').text(results.name);
-
     $('#otherUserModal').append(newModal);
     $('#otherUserModal').toggle('slide', 'left', 500);
-
     $('#xout').on('click', function(){
       $('#otherUserModal').toggle('slide', 'left', 500);
     });
-
   });
 }
 
@@ -87,7 +83,7 @@ modals.resetImage = function(){
 // var clydePic = "https://scontent.xx.fbcdn.net/v/t1.0-1/12524203_10205418162278191_2528683742764977441_n.jpg?oh=8e274615859ce6159dc5e7a26219edf4&oe=58065FC2"
 
 modals.renderUserProfile = function() {
-  $('.feed').empty();
+  $('#feed').empty();
   $('#map').toggle(700);
   $('#currentUserProfileModal').toggle(700);
   $('#updateProfileUrl').val( currentUser.picture.data.url );
@@ -100,14 +96,20 @@ modals.renderUserProfile = function() {
 }
 
 modals.renderUserFriends = function( user ){
-  //user.displayName
-  //user.picture.data.url
-  var friend = $('.friend-temp').clone();
-  friend.find('.friend-img').attr('src', user.picture.data.url );
-  friend.find('.friendName').text(user.displayName);
 
-  friend.removeClass('notShowing');
-  $('.feed').append( friend );
+  var friend ="<section class='friend-left'>"+
+      "<div class='hunnid'>"+
+        "<img src="+user.picture.data.url+" class='friend-img'>"+
+      "</div>"+
+    "</section>"+
+    "<section class='friend-right'>"+
+      "<p class='title is-4 friendName'>"+user.displayName+"</p>"+
+      "<a class='button hunnid'>Send Message</a>"+
+      "<a class='button hunnid'>Delete Friend</a>"+
+    "</section>"
+
+  var newDiv = $('<div class="friend-temp">').append( friend );
+  $('#feed').append( newDiv );
 }
 
 
@@ -119,8 +121,8 @@ modals.updateUser = function() {
   var updating = currentUser;
   var truths = 0;
 
-
   updating.displayName = $('#currentUserDisplayName').val();
+  $('#userName').text(updating.displayName);
   updating.email = $('#currentUserEmail').val();
   updating.picture.data.url = $('#updateProfileUrl').val();
 
@@ -128,21 +130,11 @@ modals.updateUser = function() {
   users.update( updating );
 }
 
-modals.clearCheckins = function(){
-  // currentUserCheckinTotal
-  var updated = currentUser;
-  updated.checkins = [ ];
-  $('#currentUserCheckinTotal').text('Total Checkins: '+updated.checkins.length);
-
-  console.log( updated );
-  users.update( updated );
-}
-
 modals.showDeleteModal = function(){
-  $('#areyousure').show();
+  $('#areyousure').toggleClass('notShowing');
 }
 modals.closeDeleteModal = function(){
-  $('#areyousure').hide();
+  $('#areyousure').toggleClass('notShowing');
 }
 
 

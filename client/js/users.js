@@ -5,8 +5,15 @@ users.renderProfileBox = function( user ){
   maps.renderHomecourt();
 }
 
-users.addToFriends = function(){
-  console.log(' Add To Friends ');
+users.addToFriends = function( result ){
+  var deets = result.name.split(',');
+  var newFriend = {
+    id: deets[0],
+    name: deets[1]
+  }
+  currentUser.friends.push( newFriend );
+  var update = currentUser
+  users.update( update );
 }
 
 users.sendMessage = function() {
@@ -51,10 +58,11 @@ users.findUserFriends = function( arr, cb){
     method: 'get',
     url: '/api/users',
     success: function( response ){
-      for( var i=0; i< arr.length; i++){
-        for( var j=0; j< response.users.length; j++){
-          if( arr[i].id === response.users[j].facebookID ){
-            cb( response.users[j] )
+      //For all of the users in the data base, if their fbID matches the currentUsers friends fbID, they should move on...
+      for(var i=0; i< response.users.length; i++){
+        for(var k=0; k<arr.length; k++){
+          if( response.users[i].facebookID === arr[k].id ){
+            cb( response.users[i] );
           }
         }
       }
