@@ -7,7 +7,8 @@ var cookieParser = require('cookie-parser');
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  // callbackURL: 'http://localhost:3000/auth/facebook/callback' || 'http://hoopdreamin.herokuapp.com'
+  callbackURL: 'http://hoopdreamin.herokuapp.com'
 },
   function(accessToken, refreshToken, profile, done){
     User.findOne({'facebookID': profile.id }, function(err, user){
