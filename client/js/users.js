@@ -17,7 +17,15 @@ users.addToFriends = function( result ){
 }
 
 users.removeFromFriends = function( ){
-  console.log( 'clicked' )
+  var arr = currentUser.friends;
+  name = 'Clyde';
+
+  for(var i=0;i< arr.length; i++){
+    if( arr[i].displayName === val ){
+      //remove from friends list
+      var newArr = arr.splice(i, 1);
+    }
+  }
 }
 
 
@@ -29,13 +37,7 @@ var names = [
 ]
 
 function findAndPop( val, arr ){
-  for(var i=0;i< arr.length; i++){
-    if( arr[i].name === val ){
-      //remove from friends list
-      var newArr = arr.splice(i, 1);
-      console.log( arr );
-    }
-  }
+
 }
 
 
