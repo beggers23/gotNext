@@ -110,6 +110,7 @@ window.fbAsyncInit = function(){
     cookie: true,
     xfbml: true,
     status: true,
+    oauth: true,
     version: 'v2.5'
   });
 
