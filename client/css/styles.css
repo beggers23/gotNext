@@ -180,6 +180,8 @@ a:hover {
   width: 80vw;
   height: 10vh;
   border-top: 5px solid #69707a;
+  background: -webkit-linear-gradient(rgba( 160,160,160,.5), rgba( 160,160,160,0));
+  background: linear-gradient(rgba( 160,160,160,.5), rgba( 160,160,160,0));
 }
 
 /*MAP STYLES*/
@@ -445,4 +447,31 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+/* SPLASH PAGE STYLES*/
+#splash-page {
+  width: 100vw;
+  height: 100vh;
+  background: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#splash-contents{
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+}
+
+
+#head-title {
+  color: White !important;
+  font-size: 7em;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
 }

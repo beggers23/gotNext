@@ -62,12 +62,12 @@ modals.openMoreInfo = function(){
   if( pos ) {
     pos = false;
     $('#contentWindow').css({'top': '80vh'});
-    $('#arrow').css({'transform':'rotate(0deg)'});
+    $('#arrow').css({'transform':'rotate(0deg)', 'color':'#69707a'});
     $('#courtProfileModal').slideToggle('slow');
   }else {
     pos = true;
     $('#contentWindow').css({'top': '40vh'});
-    $('#arrow').css({'transform':'rotate(-180deg)'});
+    $('#arrow').css({'transform':'rotate(-180deg)', 'color':'black'});
     $('#courtProfileModal').show();
   }
 }

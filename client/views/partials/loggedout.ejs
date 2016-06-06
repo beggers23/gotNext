@@ -1,5 +1,12 @@
-<h1> Login </h1>
-  <fb:login-button scope="public_profile,email,user_friends" onlogin="fbFunctions.checkLoginState()">
-  </fb:login-button>
-<div id="status">
+<div id='splash-page'>
+
+  <div id='splash-contents'>
+    <strong class='subtitle is-1' id='head-title'>Get Next</strong>
+    <div id="status" class='hidden'>
+    </div>
+    <fb:login-button data-size='large' scope="public_profile,email,user_friends" onlogin="fbFunctions.checkLoginState()">
+      Log In with Facebook
+    </fb:login-button>
+  </div>
+
 </div>

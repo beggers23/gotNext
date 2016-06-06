@@ -96,10 +96,10 @@ fbFunctions.loginUser = function(){
 
 fbFunctions.logoutUser = function(){
   FB.logout(function(response){
-    console.log( 'Logged out');
-    $('#loggedin').hide();
-    $('#loggedout').show();
+    console.log( response );
   });
+  $('#loggedin').hide();
+  $('#loggedout').show();
 }
 
 
