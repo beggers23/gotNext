@@ -37,7 +37,7 @@ maps.initMap = function(){
 
   var request = {
     location: maps.position,
-    radius: '500',
+    radius: '1000',
     query: 'basketball'
   }
 
