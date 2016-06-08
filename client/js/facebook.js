@@ -84,27 +84,21 @@ fbFunctions.findManyUsers = function( arr, cb ){
 }
 
 fbFunctions.loginDefault = function(){
-  currentUser = {
-    _id: "57558b585c3c5111008def97",
-    facebookID: "101729743586477",
-    email: "eggers.brendan@gmail.com",
-    homecourt: "",
-    picture:{
-      data:{
-        height: 1290,
-        is_silhouette: false,
-        url: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAZEAAAAJGI3MDRiZmM1LTBhNzUtNDJkOS04YmQ2LTBmYzQ0YzFhZGNiOA.jpg",
-        width: 2048
-      }
-    },
-    checkins: [],
-    friends: [],
-    displayName: 'Brendan Eggers'
-  }
-  users.renderProfileBox( currentUser );
+
   $("#loggedout").hide();
   $('#loggedin').show();
   maps.getGeolocation();
+
+  var fbId = "101729743586477";
+  $.ajax({
+    url: '/api/users/'+fbId,
+    method: 'get',
+    success: function( data ){
+      currentUser = data;
+      users.renderProfileBox( data );
+    }
+  });
+
 }
 
 

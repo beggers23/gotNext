@@ -11,6 +11,7 @@
 
 var users = {};
 users.renderProfileBox = function( user ){
+  console.log( user );
   $('#userName').text( user.displayName );
   $('#userProfilePic').attr('src', user.picture.data.url );
   maps.renderHomecourt();
