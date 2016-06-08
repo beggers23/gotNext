@@ -90,10 +90,10 @@ fbFunctions.loginDefault = function(){
     url: '/api/users/'+fbId,
     method: 'get',
     success: function( data ){
-      console.log( data );
+      console.log( data.user[0] );
 
-      currentUser = data;
-      users.renderProfileBox( data );
+      currentUser = data.user[0];
+      users.renderProfileBox( currentUser );
 
       $("#loggedout").hide();
       $('#loggedin').show();
