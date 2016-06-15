@@ -50,7 +50,10 @@ modals.renderOtherUserBox = function( info ){
   service.getDetails( { placeId: homecourt }, function( results, status ){
     newModal.find('#otherHomeCourt').text(results.name);
     $('#otherUserModal').append(newModal);
-    $('#otherUserModal').toggle('slide', 'left', 500);
+
+    if( $('#otherUserModal').is(':visible') == false ){
+      $('#otherUserModal').toggle('slide', 'left', 500);
+    }
     $('#xout').on('click', function(){
       $('#otherUserModal').toggle('slide', 'left', 500);
     });
