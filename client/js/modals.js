@@ -84,9 +84,15 @@ modals.resetImage = function(){
 
 modals.renderUserProfile = function() {
   $('#feed').empty();
-  $('#map').fadeOut(700, function(){
-    $('#currentUserProfileModal').fadeIn(700);
-  });
+  if( $('#map').is(':visible') ){
+    $('#map').fadeOut(500, function(){
+      $('#currentUserProfileModal').fadeIn(500);
+    });
+  }else if( $('#currentUserProfileModal').is(':visible')){
+    $('#currentUserProfileModal').fadeOut(500, function(){
+      $('#map').fadeIn(500);
+    })
+  }
   $('#updateProfileUrl').val( currentUser.picture.data.url );
   $('#currentUserProfilePicture').attr('src', currentUser.picture.data.url );
   $('#currentUserDisplayName').val(currentUser.displayName);
