@@ -86,12 +86,12 @@ modals.renderUserProfile = function() {
   $('#feed').empty();
   if( $('#map').is(':visible') ){
     modals.createUserProfile();
-    $('#map').fadeOut(500, function(){
-      $('#currentUserProfileModal').fadeIn(500);
+    $('#map').fadeOut(200, function(){
+      $('#currentUserProfileModal').fadeIn(200);
     });
   }else if( $('#currentUserProfileModal').is(':visible')){
-    $('#currentUserProfileModal').fadeOut(500, function(){
-      $('#map').fadeIn(500);
+    $('#currentUserProfileModal').fadeOut(200, function(){
+      $('#map').fadeIn(200);
     })
   }
 }
