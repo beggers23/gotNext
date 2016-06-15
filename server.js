@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine', 'ejs');
+
 app.set('views', path.join(__dirname, 'client/views'));
 app.use(express.static('client/'));
 

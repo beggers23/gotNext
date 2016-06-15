@@ -84,8 +84,9 @@ modals.resetImage = function(){
 
 modals.renderUserProfile = function() {
   $('#feed').empty();
-  $('#map').toggle(700);
-  $('#currentUserProfileModal').toggle(700);
+  $('#map').fadeOut(700, function(){
+    $('#currentUserProfileModal').fadeIn(700);
+  });
   $('#updateProfileUrl').val( currentUser.picture.data.url );
   $('#currentUserProfilePicture').attr('src', currentUser.picture.data.url );
   $('#currentUserDisplayName').val(currentUser.displayName);
