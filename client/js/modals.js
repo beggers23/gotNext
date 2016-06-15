@@ -85,6 +85,7 @@ modals.resetImage = function(){
 modals.renderUserProfile = function() {
   $('#feed').empty();
   if( $('#map').is(':visible') ){
+    modals.createUserProfile();
     $('#map').fadeOut(500, function(){
       $('#currentUserProfileModal').fadeIn(500);
     });
@@ -93,6 +94,9 @@ modals.renderUserProfile = function() {
       $('#map').fadeIn(500);
     })
   }
+}
+
+modals.createUserProfile = function(){
   $('#updateProfileUrl').val( currentUser.picture.data.url );
   $('#currentUserProfilePicture').attr('src', currentUser.picture.data.url );
   $('#currentUserDisplayName').val(currentUser.displayName);
