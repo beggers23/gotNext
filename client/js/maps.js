@@ -193,12 +193,13 @@ maps.renderSocial = function( arr ){
     hours = parseInt(timeArr[0]);
     minutes = parseInt(timeArr[1]);
   }
-
+  // console.log( arr );
   var newSocial = $('.social-template').clone();
   newSocial.removeClass('social-template');
   newSocial.find('.checkinPic').attr('src', arr[0].picture.data.url);
   newSocial.find('.checkinUsername').text(arr[0].displayName);
   newSocial.find('.checkinUserId').text(arr[0].facebookID );
+  newSocial.find('.checkinId').attr('id', arr[1]._id)
 
   // if( arr[0].facebookID === currentUser.facebookID ){
   //   newSocial.find('.deleteCheckin').attr('name', arr[0]._id)
