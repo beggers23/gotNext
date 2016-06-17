@@ -83,12 +83,16 @@ fbFunctions.findManyUsers = function( arr, cb ){
   }
 }
 
+//101729743586477
+
 fbFunctions.loginDefault = function(){
-  var fbId = "101729743586477";
+  var fbId = "131125183971781";
+
   $.ajax({
     url: '/api/users/'+fbId,
     method: 'get',
     success: function( data ){
+      console.log(data);
       currentUser = data.user[0];
       users.renderProfileBox( currentUser );
       $("#loggedout").fadeOut('fast',function(){

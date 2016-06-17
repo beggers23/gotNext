@@ -83,8 +83,6 @@ modals.resetImage = function(){
   $('#currentUserProfilePicture').attr('src', currentUser.picture.data.url );
 }
 
-// var clydePic = "https://scontent.xx.fbcdn.net/v/t1.0-1/12524203_10205418162278191_2528683742764977441_n.jpg?oh=8e274615859ce6159dc5e7a26219edf4&oe=58065FC2"
-
 modals.renderUserProfile = function() {
   $('#feed').empty();
   if( $('#map').is(':visible') ){
