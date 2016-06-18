@@ -17,16 +17,20 @@ users.addToFriends = function( result ){
   users.update( update );
 }
 
-users.removeFromFriends = function( ){
+users.removeFromFriends = function( content ){
+  console.log( content.id );
   var arr = currentUser.friends;
   name = 'Clyde';
-
+  var update = currentUser;
   for(var i=0;i< arr.length; i++){
-    if( arr[i].displayName === val ){
+    console.log( arr[i].facebookID == content.id );
+    if( arr[i].facebookID === content.id ){
       //remove from friends list
       var newArr = arr.splice(i, 1);
+      update.friends = newArr;
     }
   }
+  users.update( update );
 }
 
 
@@ -103,6 +107,7 @@ users.update = function( payload ) {
     data: payload,
     success: function(data){
       currentUser = data;
+      modals.renderUserProfile();
     }
   });
 }

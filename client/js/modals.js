@@ -108,6 +108,7 @@ modals.createUserProfile = function(){
 }
 
 modals.renderUserFriends = function( user ){
+  console.log(user);
   var friend ="<section class='friend-left'>"+
       "<div class='hunnid'>"+
         "<img src="+user.picture.data.url+" class='friend-img'>"+
@@ -116,7 +117,7 @@ modals.renderUserFriends = function( user ){
     "<section class='friend-right'>"+
       "<p class='title is-4 friendName'>"+user.displayName+"</p>"+
       "<a class='button hunnid'>Send Message</a>"+
-      "<a class='button hunnid'>Delete Friend</a>"+
+      "<a class='button hunnid' id="+user._id+" onclick=users.removeFromFriends(this)>Delete Friend</a>"+
     "</section>"
   var newDiv = $('<div class="friend-temp">').append( friend );
   $('#feed').append( newDiv );
